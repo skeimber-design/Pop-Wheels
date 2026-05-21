@@ -1608,7 +1608,7 @@ function openModal(id) {
     <div class="modal-meta-item"><div class="modal-meta-label">Categoría</div><div class="modal-meta-value">${f.category.replace(/-/g,' ')}</div></div>
     <div class="modal-meta-item"><div class="modal-meta-label">Serie</div><div class="modal-meta-value">${f.series}</div></div>
   `;
-  const msg = encodeURIComponent(`Hola! Me interesa el Funko Pop de *${f.name}* (${f.number}) de la serie *${f.series}*. ¿Está disponible? El precio es ${f.price}.`);
+  const msg = encodeURIComponent(`Hola! Me interesa el Funko Pop de *${f.name}* (${f.number}) de la serie *${f.series}*. ¿Está disponible?`);
   document.getElementById('modalWA').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
