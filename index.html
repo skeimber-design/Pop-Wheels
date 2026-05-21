@@ -1443,8 +1443,18 @@ function setSeriesFilter(tab) {
  
 function renderSeriesGrid() {
   const container = document.getElementById('seriesGrid');
-  let items = FUNKOS_DB.filter(f => f.category === 'series-populares');
-  if (seriesFilter !== 'Todos') items = items.filter(f => f.series === seriesFilter);
+  let items = [];
+
+  if (seriesFilter === 'Todos') {
+    // Si está en 'Todos', muestra los que tengan categoría 'series-populares'
+    items = FUNKOS_DB.filter(f => f.category === 'series-populares');
+  } else {
+    // Si se selecciona una pestaña (ej: 'Anime'), busca TODOS los de esa serie, 
+    // sin importar si su categoría es 'edicion-limitada' o 'anime'
+    items = FUNKOS_DB.filter(f => f.series === seriesFilter);
+  }
+
+  // Limitamos a 8 elementos para no romper el diseño de la cuadrícula
   items = items.slice(0, 8);
   container.innerHTML = items.map(f => buildCardFV(f)).join('');
 }
