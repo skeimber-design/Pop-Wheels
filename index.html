@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pop&Wheels | Tu Tienda de Funko Pops</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #111111;
+    --secondary: #ffffff;
+    --accent: #e63946;
+    --accent2: #ff6b6b;
+    --muted: #6b7280;
+    --muted2: #9ca3af;
+    --light-bg: #f9fafb;
+    --card-bg: #ffffff;
+    --border: #e5e7eb;
+    --border2: #d1d5db;
+    --dark-bg: #111827;
+    --dark-card: #1f2937;
+    --dark-text: #f9fafb;
+    --dark-muted: #9ca3af;
+    --green: #10b981;
+    --yellow: #f59e0b;
+    --blue: #3b82f6;
+    --purple: #8b5cf6;
+    --tag-bg: #f3f4f6;
+  }
+ 
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--secondary);
+    color: var(--primary);
+    overflow-x: hidden;
+  }
+ 
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f1f1; }
+  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+ 
+  /* ─── NAVBAR ─── */
+  nav {
+    position: sticky; top: 0; left: 0; right: 0; z-index: 1000;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+ 
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.6rem;
+    cursor: pointer; text-decoration: none;
+  }
+  .nav-logo-box {
+    width: 38px; height: 38px;
+    background: var(--primary);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 900; font-size: 0.85rem;
+    letter-spacing: -0.5px;
+    font-family: 'Poppins', sans-serif;
+  }
+  .nav-logo-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1.15rem;
+    color: var(--primary); letter-spacing: -0.5px;
+  }
+ 
+  .nav-links {
+    display: flex; gap: 0.2rem; list-style: none; align-items: center;
+  }
+  .nav-links > li > a {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.15s;
+    display: block;
+    border: 1px solid transparent;
+  }
+  .nav-links > li > a:hover { color: var(--primary); background: var(--tag-bg); }
+  .nav-links > li > a.active {
+    color: var(--primary);
+    border: 1.5px solid var(--primary);
+    background: transparent;
+  }
+ 
+  .nav-actions {
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-icon-btn {
+    width: 38px; height: 38px;
+    border: none; background: transparent;
+    cursor: pointer; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; color: var(--muted);
+    transition: all 0.15s; position: relative;
+  }
+  .nav-icon-btn:hover { background: var(--tag-bg); color: var(--primary); }
+  .cart-badge {
+    position: absolute; top: 2px; right: 2px;
+    background: var(--accent); color: #fff;
+    width: 16px; height: 16px; border-radius: 50%;
+    font-size: 0.6rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+ 
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px; background: none; border: none;
+  }
+  .hamburger span { width: 22px; height: 2px; background: var(--primary); border-radius: 2px; transition: all 0.3s; }
+ 
+  /* ─── MOBILE NAV ─── */
+  .mobile-nav {
+    display: none; position: fixed; top: 64px; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98); z-index: 999; overflow-y: auto;
+    padding: 1.5rem;
+    flex-direction: column; gap: 0.3rem;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    color: var(--primary); text-decoration: none; font-weight: 600;
+    font-size: 1rem; padding: 0.75rem 1rem; border-radius: 8px;
+    transition: all 0.15s;
+  }
+  .mobile-nav a:hover { background: var(--tag-bg); }
+  .mobile-nav .section-label {
+    color: var(--muted); font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 2px; padding: 1rem 1rem 0.3rem; font-weight: 700;
+  }
+ 
+  /* ─── HERO SLIDER ─── */
+  #hero {
+    position: relative; overflow: hidden;
+    height: calc(100vh - 64px); min-height: 520px;
+  }
+ 
+  .hero-slide {
+    position: absolute; inset: 0;
+    display: flex; align-items: center;
+    opacity: 0; transition: opacity 0.7s ease;
+    pointer-events: none;
+  }
+  .hero-slide.active { opacity: 1; pointer-events: auto; }
+ 
+  .hero-slide-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  .hero-slide-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.15) 60%, transparent 100%);
+  }
+ 
+.slide-1-bg { background-image: url('Fondo_Anime_1.png'); }
+.slide-2-bg { background-image: url('Fondo_Dinosaurios_2.png'); }
+.slide-3-bg { background-image: url('Fondo_DC_3.png'); }
+  .hero-funko-group {
+    position: absolute; right: 0; bottom: 0;
+    height: 100%; width: 65%;
+    display: flex; align-items: flex-end; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-funko-group img {
+    height: 90%; width: auto; object-fit: contain;
+    object-position: bottom;
+  }
+ 
+  .hero-content {
+    position: relative; z-index: 2;
+    padding: 0 3rem;
+    max-width: 600px;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 3px; color: rgba(255,255,255,0.75);
+    margin-bottom: 0.8rem;
+  }
+  .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    font-weight: 800; color: #fff;
+    line-height: 1.05; margin-bottom: 1rem;
+  }
+  .hero-desc {
+    color: rgba(255,255,255,0.8); font-size: 0.95rem;
+    line-height: 1.7; margin-bottom: 1.8rem; max-width: 420px;
+  }
+  .hero-btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: #fff; color: var(--primary);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.9rem;
+    padding: 0.8rem 1.8rem; border-radius: 50px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .hero-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+ 
+  /* Slider dots */
+  .slider-dots {
+    position: absolute; bottom: 1.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 0.5rem; z-index: 10;
+  }
+  .dot {
+    width: 28px; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.4);
+    cursor: pointer; transition: all 0.3s; border: none;
+  }
+  .dot.active { background: #fff; width: 36px; }
+ 
+  /* Slider arrows */
+  .slider-arrow {
+    position: absolute; top: 50%; z-index: 10;
+    transform: translateY(-50%);
+    width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff; font-size: 1rem; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .slider-arrow:hover { background: rgba(255,255,255,0.35); }
+  .slider-arrow.prev { left: 1.5rem; }
+  .slider-arrow.next { right: 1.5rem; }
+ 
+  /* ─── SECTIONS ─── */
+  section { padding: 4.5rem 2.5rem; }
+  .max-w { max-width: 1200px; margin: 0 auto; }
+ 
+  .section-eyebrow {
+    font-size: 0.72rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 2.5px; color: var(--muted); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 800; color: var(--primary); line-height: 1.1;
+    margin-bottom: 0.3rem;
+  }
+  .section-title em {
+    font-style: normal; color: var(--accent);
+    font-family: 'Georgia', serif; font-weight: 700;
+  }
+  .section-subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2.5rem; }
+ 
+  /* ─── EDICIÓN LIMITADA (horizontal scroll carousel) ─── */
+  #edicion-limitada { background: #fff; }
+ 
+  .carousel-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 2rem;
+  }
+  .carousel-arrows { display: flex; gap: 0.5rem; }
+  .car-arrow {
+    width: 38px; height: 38px; border-radius: 50%;
+    border: 1.5px solid var(--border2);
+    background: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; color: var(--primary); transition: all 0.15s;
+  }
+  .car-arrow:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+ 
+  .carousel-track-wrapper { overflow: hidden; }
+  .carousel-track {
+    display: flex; gap: 1.2rem;
+    transition: transform 0.4s ease;
+  }
+ 
+  /* ─── PRODUCT CARD (FunkoVault style) ─── */
+  .product-card-fv {
+    flex: 0 0 calc(25% - 1rem);
+    min-width: 220px;
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.25s;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .product-card-fv:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+ 
+  .card-badge-fv {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    font-size: 0.62rem; font-weight: 900; text-transform: uppercase;
+    letter-spacing: 1px; padding: 0.22rem 0.65rem; border-radius: 20px;
+    background: var(--primary); color: #fff;
+  }
+  .card-badge-fv.badge-new { background: var(--primary); }
+  .card-badge-fv.badge-exclusive { background: var(--primary); }
+  .card-badge-fv.badge-popular { background: var(--primary); }
+  .card-badge-fv.badge-limited { background: var(--primary); }
+  .card-badge-fv.badge-sale { background: var(--accent); }
+ 
+  .card-img-fv {
+    width: 100%; height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; padding: 1rem;
+    background: #f8f9fa;
+  }
+  /* Color backgrounds per series */
+  .card-img-fv.bg-marvel { background: #fff0f0; }
+  .card-img-fv.bg-starwars { background: #f0f4ff; }
+  .card-img-fv.bg-jurassic { background: #f0fff4; }
+  .card-img-fv.bg-disney { background: #f0f8ff; }
+  .card-img-fv.bg-anime { background: #fff8f0; }
+  .card-img-fv.bg-dc { background: #f5f0ff; }
+  .card-img-fv.bg-nintendo { background: #fff0f5; }
+  .card-img-fv.bg-default { background: #f3f4f6; }
+ 
+  .card-img-fv img {
+    max-width: 100%; max-height: 100%;
+    object-fit: contain; transition: transform 0.3s;
+  }
+  .product-card-fv:hover .card-img-fv img { transform: scale(1.05); }
+ 
+  .card-body-fv { padding: 1rem; }
+  .card-series-fv {
+    font-size: 0.68rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--muted); margin-bottom: 0.3rem;
+  }
+  .card-name-fv {
+    font-weight: 800; font-size: 0.9rem; color: var(--primary);
+    line-height: 1.3; margin-bottom: 0.1rem;
+  }
+  .card-footer-fv {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+  .card-price-fv {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1.05rem; color: var(--primary);
+  }
+  .add-btn-fv {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--primary); color: #fff;
+    border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; font-weight: 700;
+    transition: all 0.15s;
+  }
+  .add-btn-fv:hover { background: var(--accent); transform: scale(1.1); }
+ 
+  /* ─── SERIES POPULARES ─── */
+  #series-populares { background: var(--light-bg); }
+ 
+  .filter-tabs {
+    display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem;
+  }
+  .filter-tab {
+    padding: 0.5rem 1.2rem; border-radius: 50px;
+    border: 1.5px solid var(--border2);
+    background: #fff; color: var(--muted);
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700; font-size: 0.82rem;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+  .filter-tab.active {
+    background: var(--primary); color: #fff; border-color: var(--primary);
+  }
+ 
+  .product-grid-fv {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+ 
+  /* ─── COLECCIONES POR MARCA ─── */
+  #colecciones-marca { background: #fff; }
+ 
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+  }
+ 
+  .brand-card {
+    border-radius: 16px; overflow: hidden;
+    cursor: pointer; transition: all 0.25s;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    text-decoration: none; color: inherit;
+  }
+  .brand-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+ 
+  .brand-img-area {
+    height: 180px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brand-img-area img {
+    width: 70%; height: 70%; object-fit: contain;
+    position: relative; z-index: 2; transition: transform 0.3s;
+  }
+  .brand-card:hover .brand-img-area img { transform: scale(1.08); }
+ 
+  .bg-marvel-b { background: #ffcdd2; }
+  .bg-jurassic-b { background: #c8e6c9; }
+  .bg-starwars-b { background: #b3e5fc; }
+  .bg-hp-b { background: #e8eaf6; }
+  .bg-anime-b { background: #fff9c4; }
+  .bg-dc-b { background: #d1c4e9; }
+  .bg-nintendo-b { background: #fce4ec; }
+  .bg-stranger-b { background: #e0f7fa; }
+ 
+  .brand-info {
+    padding: 1rem 1.2rem;
+    border-top: 1px solid var(--border);
+  }
+  .brand-name-fv {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 1rem; color: var(--primary);
+    margin-bottom: 0.3rem;
+  }
+  .brand-meta {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand-desc-fv { font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+  .brand-count-fv {
+    font-weight: 800; font-size: 0.82rem; color: var(--primary);
+    white-space: nowrap; display: flex; align-items: center; gap: 0.3rem;
+  }
+  .brand-arrow { font-size: 0.7rem; color: var(--muted); }
+ 
+  /* ─── SOBRE NOSOTROS ─── */
+  #sobre-nosotros { background: var(--light-bg); }
+ 
+  .nosotros-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: start;
+  }
+  .nosotros-img-area {
+    border-radius: 16px; overflow: hidden;
+    height: 440px; background: #e5e7eb;
+    position: relative;
+  }
+  .nosotros-img-area img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  .nosotros-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+  }
+ 
+  .nosotros-text { padding-top: 0.5rem; }
+  .nosotros-text p {
+    color: var(--muted); font-size: 0.92rem; line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+ 
+  /* Stats row */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 2rem; padding: 3rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 3rem 0;
+  }
+  .stat-item { text-align: center; }
+  .stat-num-fv {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem; font-weight: 800; color: var(--primary);
+    line-height: 1; margin-bottom: 0.3rem;
+  }
+  .stat-label-fv { font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+ 
+  /* Values grid */
+  .values-section { background: var(--light-bg); padding-top: 2rem; }
+  .values-eyebrow { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; color: var(--muted); margin-bottom: 0.5rem; text-align: center; }
+  .values-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem; font-weight: 800; text-align: center;
+    margin-bottom: 2.5rem; color: var(--primary);
+  }
+  .values-title em { font-style: normal; color: var(--muted2); }
+  .values-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+  }
+  .value-card {
+    background: #fff; border-radius: 16px; padding: 1.8rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .value-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.07); }
+  .value-icon-box {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; margin-bottom: 1rem;
+    color: #fff;
+  }
+  .value-card h3 { font-weight: 800; font-size: 0.95rem; margin-bottom: 0.5rem; color: var(--primary); }
+  .value-card p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+ 
+  /* ─── NEWSLETTER ─── */
+  #newsletter {
+    background: var(--dark-bg); color: var(--dark-text);
+    padding: 3.5rem 2.5rem;
+  }
+  .newsletter-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 2rem; flex-wrap: wrap;
+  }
+  .newsletter-text h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem; font-weight: 800; margin-bottom: 0.4rem;
+  }
+  .newsletter-text p { font-size: 0.88rem; color: var(--dark-muted); max-width: 420px; line-height: 1.6; }
+  .newsletter-form { display: flex; gap: 0.7rem; min-width: 340px; }
+  .newsletter-input {
+    flex: 1; padding: 0.75rem 1.1rem;
+    background: var(--dark-card); border: 1px solid #374151;
+    border-radius: 8px; color: var(--dark-text);
+    font-family: 'Nunito', sans-serif; font-size: 0.88rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  .newsletter-input::placeholder { color: var(--dark-muted); }
+  .newsletter-input:focus { border-color: #6b7280; }
+  .newsletter-btn {
+    padding: 0.75rem 1.5rem;
+    background: #fff; color: var(--primary);
+    border: none; border-radius: 8px;
+    font-family: 'Nunito', sans-serif; font-weight: 800;
+    font-size: 0.88rem; cursor: pointer; transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .newsletter-btn:hover { background: #f3f4f6; }
+ 
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark-bg);
+    border-top: 1px solid #1f2937;
+    padding: 3rem 2.5rem 1.5rem;
+  }
+  .footer-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr;
+    gap: 2.5rem; margin-bottom: 2.5rem;
+  }
+  .footer-brand .nav-logo-box { background: var(--dark-card); }
+  .footer-brand .nav-logo-text { color: var(--dark-text); }
+  .footer-brand-desc {
+    color: var(--dark-muted); font-size: 0.82rem; line-height: 1.7;
+    margin: 1rem 0 1.2rem;
+  }
+  .social-row { display: flex; gap: 0.5rem; }
+  .social-btn-fv {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--dark-card); border: 1px solid #374151;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem; cursor: pointer; transition: all 0.15s;
+    color: var(--dark-muted); text-decoration: none;
+  }
+  .social-btn-fv:hover { background: #374151; color: var(--dark-text); }
+ 
+  .footer-col h4 {
+    font-weight: 800; font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--dark-text); margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col ul li a {
+    color: var(--dark-muted); text-decoration: none; font-size: 0.85rem;
+    transition: color 0.15s;
+  }
+  .footer-col ul li a:hover { color: var(--dark-text); }
+ 
+  .footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    border-top: 1px solid #1f2937; padding-top: 1.2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 0.5rem;
+  }
+  .footer-copy { color: var(--dark-muted); font-size: 0.78rem; }
+ 
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem; opacity: 0; visibility: hidden; transition: all 0.25s;
+  }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+ 
+  .modal {
+    background: #fff; border-radius: 20px;
+    max-width: 580px; width: 100%; max-height: 90vh; overflow-y: auto;
+    transform: scale(0.95); transition: transform 0.25s; position: relative;
+  }
+  .modal-overlay.open .modal { transform: scale(1); }
+ 
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--border); border: none; color: var(--primary);
+    font-size: 0.9rem; cursor: pointer; display: flex; align-items: center;
+    justify-content: center; transition: all 0.15s; z-index: 1;
+  }
+  .modal-close:hover { background: var(--primary); color: #fff; }
+ 
+  .modal-img-area {
+    width: 100%; height: 280px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 20px 20px 0 0; overflow: hidden; position: relative;
+    background: #f3f4f6; padding: 1.5rem;
+  }
+  .modal-img-area img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .modal-img-area .card-badge-fv { position: absolute; top: 1rem; left: 1rem; }
+ 
+  .modal-body { padding: 1.5rem; }
+  .modal-series-fv {
+    font-size: 0.7rem; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 2px; color: var(--muted); margin-bottom: 0.3rem;
+  }
+  .modal-name-fv { font-family: 'Poppins', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 0.2rem; }
+  .modal-num-fv { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; }
+ 
+  .modal-meta-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 1rem;
+  }
+  .modal-meta-item {
+    background: var(--light-bg); border-radius: 10px; padding: 0.7rem 1rem;
+  }
+  .modal-meta-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 0.15rem; }
+  .modal-meta-value { font-weight: 700; font-size: 0.85rem; color: var(--primary); }
+ 
+  .modal-desc-fv { color: var(--muted); line-height: 1.7; font-size: 0.88rem; margin-bottom: 1.5rem; }
+ 
+  .modal-price-row {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .modal-price-fv { font-family: 'Poppins', sans-serif; font-size: 2rem; font-weight: 800; }
+  .btn-whatsapp-fv {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: #25D366; color: #fff;
+    border: none; border-radius: 50px;
+    padding: 0.8rem 1.5rem; font-family: 'Nunito', sans-serif;
+    font-weight: 800; font-size: 0.9rem; cursor: pointer;
+    transition: all 0.2s; text-decoration: none;
+  }
+  .btn-whatsapp-fv:hover { background: #1fb855; transform: translateY(-2px); }
+ 
+  /* ─── PAGE SECTIONS ─── */
+  .page-section { display: block; }
+  .page-section.hidden { display: none; }
+ 
+  /* ─── COLECCIONES PAGE ─── */
+  .collection-tabs-bar {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    margin-bottom: 2rem; padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+ 
+  /* ─── FANDOMS PAGE ─── */
+  .fandoms-grid-full {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem;
+  }
+  .fandom-card-fv {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.5rem;
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
+    align-items: flex-start; gap: 0.7rem;
+  }
+  .fandom-card-fv:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-color: var(--primary); }
+  .fandom-icon-fv {
+    width: 52px; height: 52px; border-radius: 14px;
+    background: var(--tag-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+  .fandom-name-fv { font-weight: 800; font-size: 1rem; color: var(--primary); }
+  .fandom-count-fv { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+ 
+  /* ─── CONTACTO ─── */
+  .contacto-layout {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+  }
+  .contact-info-items { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.5rem; }
+  .contact-info-item {
+    display: flex; gap: 1rem; align-items: center;
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.9rem 1.1rem;
+  }
+  .ci-icon { font-size: 1.3rem; }
+  .ci-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+  .ci-value { font-weight: 700; font-size: 0.88rem; }
+ 
+  .contacto-form-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+  }
+  .form-title-fv { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 1.2rem; }
+  .form-group-fv { margin-bottom: 1rem; }
+  .form-group-fv label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.4rem; }
+  .form-group-fv input, .form-group-fv textarea, .form-group-fv select {
+    width: 100%; background: var(--light-bg); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 0.7rem 1rem;
+    color: var(--primary); font-family: 'Nunito', sans-serif; font-size: 0.88rem;
+    transition: border-color 0.2s; outline: none;
+  }
+  .form-group-fv input:focus, .form-group-fv textarea:focus, .form-group-fv select:focus { border-color: var(--primary); }
+  .form-group-fv textarea { resize: vertical; min-height: 90px; }
+  .form-submit-fv {
+    width: 100%; background: var(--primary); color: #fff;
+    border: none; border-radius: 50px; padding: 0.85rem;
+    font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.95rem;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .form-submit-fv:hover { background: #333; transform: translateY(-1px); }
+ 
+  /* ─── TOAST ─── */
+  .toast-fv {
+    position: fixed; bottom: 2rem; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--primary); color: #fff;
+    border-radius: 50px; padding: 0.7rem 1.5rem;
+    font-weight: 700; font-size: 0.88rem;
+    opacity: 0; transition: all 0.3s; z-index: 3000;
+  }
+  .toast-fv.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+ 
+  /* ─── SCROLL TOP ─── */
+  .scroll-top-fv {
+    position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--primary); color: #fff;
+    border: none; cursor: pointer; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(10px); transition: all 0.2s;
+  }
+  .scroll-top-fv.visible { opacity: 1; transform: translateY(0); }
+  .scroll-top-fv:hover { background: var(--accent); }
+ 
+  /* ─── RESPONSIVE ─── */
+ @media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .nav-actions .nav-icon-btn { width: 32px; height: 32px; font-size: 0.95rem; }
+  .cart-badge { width: 14px; height: 14px; font-size: 0.55rem; }
+
+  section { padding: 2rem 1rem; }
+
+  #hero { height: 52vw; min-height: 260px; }
+  .hero-content { padding: 0 1.2rem; }
+  .hero-title { font-size: clamp(1.6rem, 7vw, 2.5rem); }
+  .hero-desc { font-size: 0.82rem; margin-bottom: 1.2rem; }
+  .hero-btn { font-size: 0.82rem; padding: 0.65rem 1.3rem; }
+
+  .product-grid-fv { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .card-img-fv { height: 160px; padding: 0.6rem; }
+  .card-body-fv { padding: 0.7rem 0.7rem 0.3rem; }
+  .card-name-fv { font-size: 0.82rem; }
+  .card-series-fv { font-size: 0.62rem; }
+  .card-price-fv { font-size: 0.9rem; }
+  .card-footer-fv { padding: 0.5rem 0.7rem; }
+  .add-btn-fv { width: 28px; height: 28px; font-size: 1rem; }
+
+  .carousel-track { gap: 0.8rem; }
+  .product-card-fv { min-width: 160px; }
+
+  .brand-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .brand-img-area { height: 130px; }
+  .brand-name-fv { font-size: 0.85rem; }
+  .brand-desc-fv { font-size: 0.7rem; }
+  .brand-count-fv { font-size: 0.72rem; }
+
+  .values-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .value-card { padding: 1.2rem; }
+
+  .nosotros-layout { grid-template-columns: 1fr; }
+  .contacto-layout { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .newsletter-inner { flex-direction: column; }
+  .newsletter-form { min-width: unset; width: 100%; }
+
+  .fandoms-grid-full { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+  .fandom-card-fv { padding: 1rem; }
+
+  .modal { border-radius: 16px; }
+  .modal-img-area { height: 220px; }
+  .modal-name-fv { font-size: 1.3rem; }
+  .modal-price-fv { font-size: 1.6rem; }
+
+  .section-title { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .product-grid-fv { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+  .brand-grid { grid-template-columns: 1fr 1fr; }
+  .card-img-fv { height: 140px; }
+  #hero { height: 60vw; min-height: 240px; }
+}
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.2rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    section { padding: 3rem 1.2rem; }
+    .product-grid-fv { grid-template-columns: repeat(2, 1fr); }
+    .brand-grid { grid-template-columns: 1fr 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+    .nosotros-layout { grid-template-columns: 1fr; }
+    .contacto-layout { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr; }
+    .newsletter-inner { flex-direction: column; }
+    .newsletter-form { min-width: unset; width: 100%; }
+    .hero-content { padding: 0 1.5rem; }
+    .fandoms-grid-full { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .product-grid-fv { grid-template-columns: 1fr; }
+    .brand-grid { grid-template-columns: 1fr; }
+  }
+ 
+  /* ─── HERO FUNKO DISPLAY (CSS art fallback) ─── */
+  .hero-funko-row {
+    position: absolute; right: 0; bottom: 0;
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 0.5rem; padding: 0 1rem;
+    height: 85%; width: 55%;
+  }
+  .hero-funko-figure {
+    display: flex; flex-direction: column; align-items: center;
+    height: var(--h, 70%); flex-shrink: 0;
+  }
+  .hff-head {
+    width: var(--hw, 52px); height: var(--hh, 52px);
+    background: var(--hc, #ffd700); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: var(--hs, 1.6rem); position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+  }
+  .hff-body {
+    width: var(--bw, 40px); height: var(--bh, 50px);
+    background: var(--bc, #2980b9); border-radius: 8px 8px 12px 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+</style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showSection('hero');return false" href="#">
+    <div class="nav-logo-box">P&W</div>
+    <span class="nav-logo-text">Pop&amp;Wheels</span>
+  </a>
+ 
+  <ul class="nav-links">
+    <li><a href="#" class="active" id="nav-inicio" onclick="showSection('hero');setActive('inicio');return false">Inicio</a></li>
+    <li><a href="#" id="nav-colecciones" onclick="showSection('colecciones');filterCollection('todos');setActive('colecciones');return false">Colecciones</a></li>
+    <li><a href="#" id="nav-limitada" onclick="showSection('colecciones');filterCollection('edicion-limitada');setActive('limitada');return false">Edición Limitada</a></li>
+    <li><a href="#" id="nav-accesorios" onclick="showSection('colecciones');filterCollection('accesorios');setActive('accesorios');return false">Accesorios</a></li>
+    <li><a href="#" id="nav-nosotros" onclick="showSection('nosotros');setActive('nosotros');return false">Sobre Nosotros</a></li>
+  </ul>
+ 
+  <button class="hamburger" onclick="toggleMobileNav()" id="hamburger">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+ 
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#" onclick="showSection('hero');setActive('inicio');closeMobileNav();return false">🏠 Inicio</a>
+  <a href="#" onclick="showSection('colecciones');filterCollection('todos');setActive('colecciones');closeMobileNav();return false">🛍 Colecciones</a>
+  <a href="#" onclick="showSection('colecciones');filterCollection('edicion-limitada');setActive('limitada');closeMobileNav();return false">⭐ Edición Limitada</a>
+  <a href="#" onclick="showSection('colecciones');filterCollection('accesorios');setActive('accesorios');closeMobileNav();return false">🎁 Accesorios</a>
+  <span class="section-label">Fandoms</span>
+  <a href="#" onclick="showSection('fandoms');closeMobileNav();return false">🌐 Ver Todos los Fandoms</a>
+  <a href="#" onclick="showSection('nosotros');setActive('nosotros');closeMobileNav();return false">ℹ️ Sobre Nosotros</a>
+  <a href="#" onclick="showSection('contacto');closeMobileNav();return false">📬 Contacto</a>
+</div>
+ 
+<!-- ═══ SECTION: HOME ═══ -->
+<div id="sec-hero" class="page-section">
+ 
+  <!-- HERO SLIDER -->
+  <section id="hero" style="padding:0">
+    <!-- Slide 1 -->
+    <div class="hero-slide active" id="slide-0">
+      <div class="hero-slide-bg slide-1-bg"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-funko-row" id="heroFunkos0"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Face your biggest challenge</div>
+        <h1 class="hero-title">Dragon Ball<br>DAIMA</h1>
+        <p class="hero-desc">Explora nuevos mundos con colecciones oficiales de Dragon Ball DAIMA.</p>
+        <a href="#" class="hero-btn" onclick="showSection('colecciones');filterFandom('Anime');return false">
+          Ver Colección →
+        </a>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="hero-slide" id="slide-1">
+      <div class="hero-slide-bg slide-2-bg"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-funko-row" id="heroFunkos1"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Nuevos Arrivals</div>
+        <h1 class="hero-title">Jurassic<br>World</h1>
+        <p class="hero-desc">Figuras de edición limitada de Jurassic World Dominion. ¡Antes de que se extingan!</p>
+        <a href="#" class="hero-btn" onclick="showSection('colecciones');filterFandom('Jurassic World');return false">
+          Ver Colección →
+        </a>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="hero-slide" id="slide-2">
+      <div class="hero-slide-bg slide-3-bg"></div>
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-funko-row" id="heroFunkos2"></div>
+      <div class="hero-content">
+        <div class="hero-eyebrow">Colección DC</div>
+        <h1 class="hero-title">DC Comics<br>Clásicos</h1>
+        <p class="hero-desc">Batman, Flash y tus héroes favoritos de DC en figuras coleccionables.</p>
+        <a href="#" class="hero-btn" onclick="showSection('colecciones');filterFandom('DC Comics');return false">
+          Ver Colección →
+        </a>
+      </div>
+    </div>
+ 
+    <button class="slider-arrow prev" onclick="prevSlide()">‹</button>
+    <button class="slider-arrow next" onclick="nextSlide()">›</button>
+    <div class="slider-dots" id="sliderDots"></div>
+  </section>
+ 
+  <!-- EDICIÓN LIMITADA -->
+  <section id="edicion-limitada" style="padding: 4.5rem 2.5rem;">
+    <div class="max-w">
+      <div class="carousel-header">
+        <div>
+          <div class="section-eyebrow">Nuevos Lanzamientos</div>
+          <div class="section-title">Edición <em>Limitada</em></div>
+          <div class="section-subtitle">Descubre los Funko Pops más exclusivos y recientes</div>
+        </div>
+        <div class="carousel-arrows">
+          <button class="car-arrow" onclick="scrollCarousel(-1)">‹</button>
+          <button class="car-arrow" onclick="scrollCarousel(1)">›</button>
+        </div>
+      </div>
+      <div class="carousel-track-wrapper">
+        <div class="carousel-track" id="carouselTrack"></div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- SERIES POPULARES -->
+  <section id="series-populares" style="background:var(--light-bg); padding: 4.5rem 2.5rem;">
+    <div class="max-w">
+      <div class="section-eyebrow">Lo Más Vendido</div>
+      <div class="section-title">Series <em>Populares</em></div>
+      <div class="section-subtitle" style="margin-bottom:1.5rem">Las colecciones favoritas de nuestros clientes</div>
+      <div class="filter-tabs" id="seriesFilterTabs"></div>
+      <div class="product-grid-fv" id="seriesGrid"></div>
+    </div>
+  </section>
+ 
+  <!-- COLECCIONES POR MARCA -->
+  <section id="colecciones-marca" style="padding: 4.5rem 2.5rem;">
+    <div class="max-w">
+      <div class="section-eyebrow">Explora por Universo</div>
+      <div class="section-title">Colecciones por <em>Marca</em></div>
+      <div class="section-subtitle" style="margin-bottom:2rem"></div>
+      <div class="brand-grid" id="brandGrid"></div>
+    </div>
+  </section>
+ 
+</div>
+ 
+<!-- ═══ SECTION: COLECCIONES ═══ -->
+<div id="sec-colecciones" class="page-section hidden" style="padding-top:0">
+  <section style="padding: 3.5rem 2.5rem; background:var(--light-bg);">
+    <div class="max-w">
+      <div class="section-eyebrow">Tienda</div>
+      <div class="section-title">Nuestras <em>Colecciones</em></div>
+      <p class="section-subtitle" id="collSubtitle">Todos los Funko Pops disponibles</p>
+      <div class="collection-tabs-bar" id="collTabs"></div>
+      <div class="product-grid-fv" id="collGrid"></div>
+    </div>
+  </section>
+</div>
+ 
+<!-- ═══ SECTION: FANDOMS ═══ -->
+<div id="sec-fandoms" class="page-section hidden" style="padding-top:0">
+  <section style="padding: 3.5rem 2.5rem; background:var(--light-bg);">
+    <div class="max-w">
+      <div class="section-eyebrow">Universos</div>
+      <div class="section-title">Todos los <em>Fandoms</em></div>
+      <p class="section-subtitle" style="margin-bottom:2rem">Haz clic para explorar cada colección</p>
+      <div class="fandoms-grid-full" id="fandomsFullGrid"></div>
+    </div>
+  </section>
+</div>
+ 
+<!-- ═══ SECTION: NOSOTROS ═══ -->
+<div id="sec-nosotros" class="page-section hidden" style="padding-top:0">
+  <!-- Historia -->
+  <section style="padding: 4.5rem 2.5rem; background:#fff;">
+    <div class="max-w">
+      <div class="nosotros-layout">
+        <div class="nosotros-img-area">
+          <div class="nosotros-img-placeholder">🏪</div>
+        </div>
+        <div class="nosotros-text">
+          <div class="section-eyebrow">Nuestra Historia</div>
+          <div class="section-title" style="margin-bottom:1.2rem">De fans, <em>para fans</em></div>
+          <p>Pop&Wheels nació de la pasión por los coleccionables y la cultura pop. Somos una tienda dedicada a ofrecer las mejores figuras Funko Pop a fanáticos y coleccionistas de toda Costa Rica.</p>
+          <p>Desde nuestros inicios, hemos crecido hasta convertirnos en uno de los destinos más confiables para encontrar ediciones limitadas, exclusivas y las últimas novedades del universo Funko. Trabajamos directamente con distribuidores autorizados para garantizar la autenticidad de cada pieza.</p>
+          <p>Nuestra misión es simple: conectar a los fans con sus personajes favoritos a través de figuras de alta calidad que capturen la esencia de cada personaje. Ya sea que seas fan de Marvel, Disney, anime o películas clásicas, tenemos algo especial para ti.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Stats -->
+  <section style="padding: 0 2.5rem; background:#fff;">
+    <div class="max-w">
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-num-fv">500+</div>
+          <div class="stat-label-fv">Productos Disponibles</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num-fv">20+</div>
+          <div class="stat-label-fv">Colecciones</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num-fv">1,000+</div>
+          <div class="stat-label-fv">Clientes Felices</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num-fv">5+</div>
+          <div class="stat-label-fv">Años de Experiencia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <!-- Values -->
+  <section style="padding: 4.5rem 2.5rem; background: var(--light-bg);">
+    <div class="max-w">
+      <div class="values-eyebrow">Lo Que Nos Define</div>
+      <div class="values-title">Nuestros <em>Valores</em></div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon-box">🔒</div>
+          <h3>Autenticidad Garantizada</h3>
+          <p>Todas nuestras figuras son 100% originales y vienen directamente de distribuidores autorizados.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon-box">👑</div>
+          <h3>Ediciones Exclusivas</h3>
+          <p>Acceso a Funko Pops de edición limitada y exclusivas que no encontrarás en cualquier lado.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon-box">👥</div>
+          <h3>Comunidad de Fans</h3>
+          <p>Más que una tienda, somos una comunidad de apasionados por la cultura pop y los coleccionables.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon-box">🚚</div>
+          <h3>Envío Seguro</h3>
+          <p>Empaquetamos cada figura con el máximo cuidado para que llegue en perfectas condiciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+ 
+<!-- ═══ SECTION: CONTACTO ═══ -->
+<div id="sec-contacto" class="page-section hidden" style="padding-top:0">
+  <section style="padding: 4.5rem 2.5rem; background: var(--light-bg);">
+    <div class="max-w">
+      <div class="contacto-layout">
+        <div>
+          <div class="section-eyebrow">📬 Contacto</div>
+          <div class="section-title" style="margin-bottom:0.8rem">Hablemos <em>hoy</em></div>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;margin-bottom:0.5rem">
+            ¿Buscas un Pop específico? ¿Quieres saber sobre disponibilidad o precios? Escríbenos y te respondemos en minutos.
+          </p>
+          <div class="contact-info-items">
+            <div class="contact-info-item">
+              <span class="ci-icon">📱</span>
+              <div><div class="ci-label">WhatsApp</div><div class="ci-value">+506 8919-4472</div></div>
+            </div>
+            <div class="contact-info-item">
+              <span class="ci-icon">📧</span>
+              <div><div class="ci-label">Email</div><div class="ci-value">info@popandwheels.cr</div></div>
+            </div>
+            <div class="contact-info-item">
+              <span class="ci-icon">📍</span>
+              <div><div class="ci-label">Ubicación</div><div class="ci-value">Heredia, Costa Rica</div></div>
+            </div>
+            <div class="contact-info-item">
+              <span class="ci-icon">🕐</span>
+              <div><div class="ci-label">Horario</div><div class="ci-value">Lun–Vie 9am–7pm · Sáb 10am–5pm</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div> 
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.2rem">
+        <div class="nav-logo-box" style="background:#374151">P&W</div>
+        <span class="nav-logo-text" style="color:var(--dark-text)">Pop&amp;Wheels</span>
+      </div>
+      <p class="footer-brand-desc">Tu destino de confianza para coleccionar los mejores Funko Pops de Costa Rica. Originales, exclusivos y con entrega garantizada.</p>
+      <div class="social-row">
+  <a class="social-btn-fv" title="Instagram" href="https://www.instagram.com/pop_and_wheels/" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+  <a class="social-btn-fv" title="WhatsApp" href="https://wa.me/50689194472" target="_blank" rel="noopener noreferrer">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.125.558 4.122 1.532 5.855L.057 23.527a.75.75 0 0 0 .916.916l5.672-1.475A11.934 11.934 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.006-1.371l-.359-.214-3.724.968.992-3.614-.234-.372A9.818 9.818 0 1 1 12 21.818z"/>
+    </svg>
+  </a>
+</div>
+    </div>
+    <div class="footer-col">
+      <h4>Tienda</h4>
+      <ul>
+        <li><a href="#" onclick="showSection('colecciones');filterCollection('edicion-limitada');return false">Edición Limitada</a></li>
+        <li><a href="#" onclick="showSection('colecciones');filterCollection('exclusivos');return false">Exclusivos</a></li>
+        <li><a href="#" onclick="showSection('colecciones');filterCollection('series-populares');return false">Series Populares</a></li>
+        <li><a href="#" onclick="showSection('colecciones');filterCollection('accesorios');return false">Accesorios</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="#">Centro de Ayuda</a></li>
+        <li><a href="#">Rastrear Pedido</a></li>
+        <li><a href="#">Devoluciones</a></li>
+        <li><a href="#">Envíos</a></li>
+        <li><a href="#" onclick="showSection('contacto');return false">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Compañía</h4>
+      <ul>
+        <li><a href="#" onclick="showSection('nosotros');return false">Sobre Nosotros</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Pop&amp;Wheels. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1rem">
+      <a href="#" style="color:var(--dark-muted);font-size:0.78rem;text-decoration:none">Privacidad</a>
+      <a href="#" style="color:var(--dark-muted);font-size:0.78rem;text-decoration:none">Términos</a>
+      <a href="#" style="color:var(--dark-muted);font-size:0.78rem;text-decoration:none">Cookies</a>
+    </div>
+  </div>
+</footer>
+ 
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-img-area" id="modalImgArea"></div>
+    <div class="modal-body">
+      <div class="modal-series-fv" id="modalSeries"></div>
+      <div class="modal-name-fv" id="modalName"></div>
+      <div class="modal-num-fv" id="modalNum"></div>
+      <div class="modal-meta-grid" id="modalMeta"></div>
+      <p class="modal-desc-fv" id="modalDesc"></p>
+      <div class="modal-price-row">
+        <div class="modal-price-fv" id="modalPrice"></div>
+        <a class="btn-whatsapp-fv" id="modalWA" href="#" target="_blank">
+          💬 Consultar por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+// ══════════════════════════════════════════════════
+//  BASE DE DATOS
+// ══════════════════════════════════════════════════
+const FUNKOS_DB = [
+  //Marvel
+  { id:1, name:'Spider-Man (No Way Home)', series:'Marvel', number:'#1218', emoji:'🕷️',
+    price:'₡8.000', category:'series-populares', badge:'new',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Spider-Man tal como aparece en No Way Home, con su traje rojo y azul clásico y efectos de tela de araña.',
+    featured:true, image: 'spiderman_1422.jpg' },
+
+  { id:2, name:'Capitan America', series:'Marvel', number:'#1419', emoji:'🕷️',
+    price:'₡8.000', category:'series-populares', badge:'new',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Spider-Man tal como aparece en No Way Home, con su traje rojo y azul clásico y efectos de tela de araña.',
+    featured:true, image: 'Capitan_America_1419.jfif' },
+
+  //Star Wars
+  
+  //Jurassic World  
+  { id:11, name:'Atrociraptor (Ghost)', series:'Jurassic World', number:'#1219', emoji:'🦕',
+    price:'₡8.000', category:'edicion-limitada', badge:'limited',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Atrociraptor (Ghost) para tu colección Jurassic World Dominion.',
+    featured:true, image: 'Raptor_Ghost.jpg' },
+ 
+  { id:12, name:'Blue (Raptor)', series:'Jurassic World', number:'#586', emoji:'🦎',
+    price:'₡8.000', category:'series-populares', badge:'SOLD',
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'La velociraptor Blue, la favorita de Owen Grady. Figura en pose de ataque con los ojos azules brillantes.',
+    featured:true, image: 'Blue_Raptor.jpg' },
+ 
+  { id:13, name:'Titanosaurios', series:'Jurassic World', number:'#1799', emoji:'🎩',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'FUNKO POP TITANOSAURUS JURASSIC WORLD - 1799.',
+    featured:false, image: 'Titanosaurios.jfif' },
+
+  //Disney
+   
+  //Anime
+  { id:17, name:'Naruto Uzumaki (Kyuubi)', series:'anime', number:'#2063', emoji:'🌀',
+    price:'₡8.000', category:'anime', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Es la versión más hambrienta y divertida del protagonista. Aparece sentado con un tazón de ramen en las manos, usando palillos y con fideos colgando de la boca, capturando su obsesión por la comida de Ichiraku.',
+    featured:true, image: 'Naruto_Uzumaki_2063.jfif' },
+
+  { id:18, name:'Naruto (Six Path)', series:'Anime', number:'#186', emoji:'🌀',
+    price:'₡8.000', category:'edicion-limitada', badge:'limited',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Representa a Naruto con el poder divino que le otorgó el Sabio de los Seis Caminos. Destaca por su vestimenta oscurecida combinada con un manto de chakra amarillo brillante, ojos con pupilas en cruz y los bastones negros de combate en sus manos.',
+    featured:true, image: 'Naruto_Six_Path_186.jfif' },
+
+  { id:19, name:'Tsunade', series:'Anime', number:'#730', emoji:'🌀',
+    price:'₡8.000', category:'edicion-limitada', badge:'limited',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'La poderosa Quinta Hokage está recreada con su clásico abrigo verde sobre su ropa gris y el cabello rubio recogido en dos coletas bajas. Tiene una pose imponente con los brazos cruzados y se le nota el pequeño rombo azul (el sello Byakugou) en la frente.',
+    featured:true, image: 'Tsunade_730.jfif' },
+
+  { id:20, name:'Naruto (Six Path Sage)', series:'Anime', number:'#932', emoji:'🌀',
+    price:'₡8.000', category:'edicion-limitada', badge:'limited',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Otra versión de su transformación celestial, pero enfocada en el Modo Sabio de los Seis Caminos. En esta figura, el brillo amarillo es más translúcido y dinámico, y viene acompañado por las esferas negras flotando de manera circular a su espalda.',
+    featured:true, image: 'Naruto_Six_Path_Sage_932.jpg' },
+
+
+
+  //DC
+  { id:21, name:'Batman de Michael Keaton (1989)', series:'DC Comics', number:'#19', emoji:'🦇',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'Basado en la icónica película de Tim Burton protagonizada por Michael Keaton.',
+    featured:false, image: 'Batman_19.jfif' },
+ 
+  { id:22, name:'Batman Cómic Clásico (Años 80)', series:'DC Comics', number:'#144', emoji:'🃏',
+    price:'₡8.000', category:'edicion-limitada', badge:'limited',
+    height:'3.75 pulgadas', material:'Vinilo Premium',
+    desc:'Una versión retro inspirada en los cómics clásicos de los años 80.',
+    featured:false, image: 'Batman_144.webp' },
+
+  { id:24, name:'Batman Clásico de DC Comics', series:'DC Comics', number:'#01', emoji:'⚡',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'El diseño definitivo y tradicional de DC Comics.',
+    featured:false, image: 'Batman_01.webp' },
+ 
+  { id:25, name:'Batman Red Son', series:'DC Comics', number:'#312', emoji:'⚡',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'Inspirado en el cómic "Superman: Red Son". Batman rebelde ruso con ushanka.',
+    featured:false, image: 'Batman_312.jfif' },
+ 
+  { id:26, name:'The Flash (Serie de TV)', series:'DC Comics', number:'#213', emoji:'⚡',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'Basado en el velocista escarlata interpretado por Grant Gustin en The CW.',
+    featured:false, image: 'Flash_213.webp' },
+ 
+  { id:27, name:'Bane Clásico (DC Comics)', series:'DC Comics', number:'#218', emoji:'💪',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:'Inspirado en el diseño original de los cómics de los años 90, famoso por la saga Knightfall.',
+    featured:false, image: 'Bane_218.jpg' },
+ 
+  { id:28, name:"Green Lantern: Ch\"p, Guy & Kilowog (3-Pack)", series:'DC Comics', number:'#3', emoji:'💚',
+    price:'₡8.000', category:'series-populares', badge:null,
+    height:'3.75 pulgadas', material:'Vinilo',
+    desc:"Set exclusivo de DC Comics con Ch\"p, Guy Gardner y Kilowog.",
+    featured:false, image: 'Trio_Anillos.jfif' },
+ 
+  //Accesorios
+  
+];
+ 
+const FANDOMS_DB = [
+  { name:'Marvel', icon:'🦸', color:'#ffcdd2', desc:'Tus héroes favoritos del Universo Marvel' },
+  { name:'Star Wars', icon:'⚔️', color:'#b3e5fc', desc:'Una galaxia muy, muy lejana' },
+  { name:'Jurassic World', icon:'🦕', color:'#c8e6c9', desc:'Dinosaurios y aventuras prehistóricas' },
+  { name:'Disney', icon:'✨', color:'#fff9c4', desc:'La magia de Disney en tus manos' },
+  { name:'Anime', icon:'🌀', color:'#ffe0b2', desc:'Los mejores personajes del anime' },
+  { name:'DC Comics', icon:'🦇', color:'#d1c4e9', desc:'Superhéroes del universo DC' },
+  { name:'Harry Potter', icon:'🧙', color:'#e8eaf6', desc:'Magia y encanto del mundo mágico' },
+  { name:'Nintendo', icon:'🎮', color:'#fce4ec', desc:'Personajes icónicos de Nintendo' },
+  { name:'Stranger Things', icon:'📺', color:'#e0f7fa', desc:'El Mundo del Revés' },
+  { name:'Game of Thrones', icon:'🐉', color:'#fff3e0', desc:'Westeros en tu colección' },
+  { name:'Accesorios', icon:'🛡️', color:'#e8f5e9', desc:'Protege y exhibe tu colección' },
+  { name:'Exclusivos', icon:'💎', color:'#f3e5f5', desc:'Solo en Pop&Wheels' },
+];
+ 
+const WHATSAPP_NUMBER = '50689194472';
+const SERIES_BG = {
+  'Marvel':'bg-marvel','Star Wars':'bg-starwars','Jurassic World':'bg-jurassic',
+  'Disney':'bg-disney','Anime':'bg-anime','DC Comics':'bg-dc','Nintendo':'bg-nintendo',
+  'default':'bg-default'
+};
+ 
+// ─── SLIDER ───
+let currentSlide = 0;
+let slideTimer;
+ 
+function buildDots() {
+  const container = document.getElementById('sliderDots');
+  const slides = document.querySelectorAll('.hero-slide');
+  container.innerHTML = '';
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.onclick = () => goSlide(i);
+    container.appendChild(btn);
+  });
+}
+ 
+function goSlide(n) {
+  const slides = document.querySelectorAll('.hero-slide');
+  slides[currentSlide].classList.remove('active');
+  document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+  currentSlide = (n + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+  resetTimer();
+}
+function nextSlide() { goSlide(currentSlide + 1); }
+function prevSlide() { goSlide(currentSlide - 1); }
+function resetTimer() {
+  clearInterval(slideTimer);
+  slideTimer = setInterval(nextSlide, 5000);
+}
+ 
+function buildHeroFunkos() {
+  const heroData = [
+    [17, 11, 12, 1, 7],   // slide 0: anime + jurassic + marvel + starwars
+    [11, 12, 13, 28],      // slide 1: jurassic world
+    [21, 22, 23, 24, 25]   // slide 2: dc comics
+  ];
+  heroData.forEach((ids, si) => {
+    const container = document.getElementById('heroFunkos' + si);
+    if (!container) return;
+    const funkos = ids.map(id => FUNKOS_DB.find(f => f.id === id)).filter(Boolean);
+    container.innerHTML = funkos.map((f, idx) => {
+      const heights = [55, 65, 75, 65, 55];
+      const h = heights[idx] || 60;
+      return `
+        <div class="hero-funko-figure" style="--h:${h}%;align-items:center;justify-content:flex-end">
+          <div class="hff-head" style="--hw:${h*0.7}px;--hh:${h*0.7}px;--hc:#ffd700;--hs:${h*0.028}rem;width:${h*0.7}px;height:${h*0.7}px;font-size:${h*0.028}rem">
+            ${f.emoji}
+          </div>
+          <div class="hff-body" style="width:${h*0.52}px;height:${h*0.65}px;font-size:${h*0.018}rem"></div>
+        </div>
+      `;
+    }).join('');
+  });
+}
+ 
+// ─── RENDER CAROUSEL (edición limitada) ───
+let carouselOffset = 0;
+function renderCarousel() {
+  const items = FUNKOS_DB.filter(f => f.category === 'edicion-limitada' || f.badge === 'new' || f.badge === 'limited');
+  const track = document.getElementById('carouselTrack');
+  track.innerHTML = items.map(f => buildCardFV(f)).join('');
+}
+ 
+function scrollCarousel(dir) {
+  const track = document.getElementById('carouselTrack');
+  const cards = track.querySelectorAll('.product-card-fv');
+  const cardW = (cards[0]?.offsetWidth || 240) + 19;
+  const maxOffset = Math.max(0, (cards.length - 4) * cardW);
+  carouselOffset = Math.max(0, Math.min(carouselOffset + dir * cardW, maxOffset));
+  track.style.transform = `translateX(-${carouselOffset}px)`;
+}
+ 
+// ─── RENDER SERIES POPULARES ───
+let seriesFilter = 'Todos';
+const seriesTabs = ['Todos','Marvel','Jurassic World','Star Wars','Harry Potter','DC Comics','Anime','Nintendo'];
+ 
+function renderSeriesTabs() {
+  const container = document.getElementById('seriesFilterTabs');
+  container.innerHTML = seriesTabs.map(t => `
+    <button class="filter-tab ${t === seriesFilter ? 'active' : ''}"
+      onclick="setSeriesFilter('${t}')">${t}</button>
+  `).join('');
+}
+ 
+function setSeriesFilter(tab) {
+  seriesFilter = tab;
+  renderSeriesTabs();
+  renderSeriesGrid();
+}
+ 
+function renderSeriesGrid() {
+  const container = document.getElementById('seriesGrid');
+  let items = FUNKOS_DB.filter(f => f.category === 'series-populares');
+  if (seriesFilter !== 'Todos') items = items.filter(f => f.series === seriesFilter);
+  items = items.slice(0, 8);
+  container.innerHTML = items.map(f => buildCardFV(f)).join('');
+}
+ 
+// ─── RENDER BRAND GRID ───
+function renderBrandGrid() {
+  const brands = [
+    { name:'Marvel', bg:'bg-marvel-b', desc:'Tus héroes del MCU', count: FUNKOS_DB.filter(f=>f.series==='Marvel').length },
+    { name:'Jurassic World', bg:'bg-jurassic-b', desc:'Dinosaurios y aventuras', count: FUNKOS_DB.filter(f=>f.series==='Jurassic World').length },
+    { name:'Star Wars', bg:'bg-starwars-b', desc:'Una galaxia muy, muy lejana', count: FUNKOS_DB.filter(f=>f.series==='Star Wars').length },
+    { name:'Harry Potter', bg:'bg-hp-b', desc:'Magia y encanto', count: FUNKOS_DB.filter(f=>f.series==='Harry Potter').length },
+    { name:'DC Comics', bg:'bg-dc-b', desc:'Superhéroes DC', count: FUNKOS_DB.filter(f=>f.series==='DC Comics').length },
+    { name:'Anime', bg:'bg-anime-b', desc:'Los mejores animes', count: FUNKOS_DB.filter(f=>f.series==='Anime').length },
+    { name:'Nintendo', bg:'bg-nintendo-b', desc:'Personajes Nintendo', count: FUNKOS_DB.filter(f=>f.series==='Nintendo').length },
+    { name:'Stranger Things', bg:'bg-stranger-b', desc:'El Mundo del Revés', count: FUNKOS_DB.filter(f=>f.series==='Stranger Things').length },
+  ];
+  const fd = FANDOMS_DB.find(x=>x.name);
+  const container = document.getElementById('brandGrid');
+  container.innerHTML = brands.map(b => {
+    const fandom = FANDOMS_DB.find(f=>f.name===b.name);
+    const icon = fandom ? fandom.icon : '🎭';
+    return `
+      <a class="brand-card" onclick="showSection('colecciones');filterFandom('${b.name}');return false" href="#">
+        <div class="brand-img-area ${b.bg}">
+          <div style="font-size:5rem">${icon}</div>
+        </div>
+        <div class="brand-info">
+          <div class="brand-name-fv">${b.name}</div>
+          <div class="brand-meta">
+            <div class="brand-desc-fv">${b.desc}</div>
+            <div class="brand-count-fv">${b.count} figuras <span class="brand-arrow">→</span></div>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+ 
+// ─── RENDER COLECCIONES PAGE ───
+function renderCollTabs() {
+  const tabs = [
+    { key:'todos', label:'Todos' },
+    { key:'edicion-limitada', label:'⭐ Edición Limitada' },
+    { key:'series-populares', label:'🔥 Series Populares' },
+    { key:'accesorios', label:'🎁 Accesorios' },
+    { key:'exclusivos', label:'💎 Exclusivos' },
+  ];
+  const container = document.getElementById('collTabs');
+  container.innerHTML = tabs.map(t => `
+    <button class="filter-tab ${currentCollFilter===t.key?'active':''}"
+      onclick="filterCollection('${t.key}')">${t.label}</button>
+  `).join('');
+}
+ 
+let currentCollFilter = 'todos';
+let currentFandomFilter = null;
+ 
+function filterCollection(cat) {
+  currentCollFilter = cat;
+  currentFandomFilter = null;
+  showSection('colecciones');
+  renderCollTabs();
+  const subtitles = {
+    todos:'Todos los Funko Pops disponibles',
+    'edicion-limitada':'Figuras de edición limitada',
+    'series-populares':'Las series más populares',
+    accesorios:'Accesorios para tu colección',
+    exclusivos:'Exclusivos Pop&Wheels'
+  };
+  document.getElementById('collSubtitle').textContent = subtitles[cat] || '';
+  let items = cat === 'todos' ? FUNKOS_DB : FUNKOS_DB.filter(f => f.category === cat);
+  document.getElementById('collGrid').innerHTML = items.map(f => buildCardFV(f)).join('');
+}
+ 
+function filterFandom(fandom) {
+  currentFandomFilter = fandom;
+  currentCollFilter = 'todos';
+  showSection('colecciones');
+  renderCollTabs();
+  document.getElementById('collSubtitle').textContent = `Mostrando todos los Pops de ${fandom}`;
+  const items = FUNKOS_DB.filter(f => f.series === fandom);
+  document.getElementById('collGrid').innerHTML = items.length
+    ? items.map(f => buildCardFV(f)).join('')
+    : `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">
+        <div style="font-size:3rem;margin-bottom:1rem">😔</div>
+        <div style="font-weight:700;font-size:1rem">No hay figuras disponibles para esta categoría aún</div>
+       </div>`;
+}
+ 
+// ─── RENDER FANDOMS FULL ───
+function renderFandomsFull() {
+  const container = document.getElementById('fandomsFullGrid');
+  container.innerHTML = FANDOMS_DB.map(fd => {
+    const count = FUNKOS_DB.filter(f => f.series === fd.name).length;
+    return `
+      <a class="fandom-card-fv" onclick="filterFandom('${fd.name}');return false" href="#">
+        <div class="fandom-icon-fv">${fd.icon}</div>
+        <div>
+          <div class="fandom-name-fv">${fd.name}</div>
+          <div class="fandom-count-fv">${count} figuras disponibles</div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+ 
+// ─── BUILD CARD ───
+function getBgClass(series) {
+  return SERIES_BG[series] || SERIES_BG['default'];
+}
+ 
+function buildCardFV(f) {
+  const badgeMap = { limited:'badge-limited', new:'badge-new', exclusive:'badge-exclusive', sale:'badge-sale' };
+  const badgeLabel = { limited:'EXCLUSIVO', new:'NUEVO', exclusive:'EXCLUSIVO', sale:'OFERTA' };
+  const badge = f.badge ? `<span class="card-badge-fv ${badgeMap[f.badge]||''}">${badgeLabel[f.badge]||f.badge.toUpperCase()}</span>` : '';
+  const bgClass = getBgClass(f.series);
+  return `
+    <div class="product-card-fv" onclick="openModal(${f.id})">
+      ${badge}
+      <div class="card-img-fv ${bgClass}">
+        <img src="${f.image}" alt="${f.name}"
+          onerror="this.parentElement.innerHTML='<span style=\\'font-size:4rem\\'>${f.emoji}</span>'"
+        >
+      </div>
+      <div class="card-body-fv">
+        <div class="card-series-fv">${f.series}</div>
+        <div class="card-name-fv">${f.name}</div>
+      </div>
+      <div class="card-footer-fv">
+        <div class="card-price-fv">${f.price}</div>
+        <button class="add-btn-fv" onclick="event.stopPropagation();showToast('🛒 ¡${f.name} añadido!')">+</button>
+      </div>
+    </div>
+  `;
+}
+ 
+// ─── OPEN MODAL ───
+function openModal(id) {
+  const f = FUNKOS_DB.find(x => x.id === id);
+  if (!f) return;
+  const badgeMap = { limited:'badge-limited', new:'badge-new', exclusive:'badge-exclusive', sale:'badge-sale' };
+  const badgeLabel = { limited:'EXCLUSIVO', new:'NUEVO', exclusive:'EXCLUSIVO', sale:'OFERTA' };
+  const badge = f.badge ? `<span class="card-badge-fv ${badgeMap[f.badge]||''}">${badgeLabel[f.badge]||f.badge.toUpperCase()}</span>` : '';
+  const bgClass = getBgClass(f.series);
+ 
+  document.getElementById('modalImgArea').className = `modal-img-area ${bgClass}`;
+  document.getElementById('modalImgArea').innerHTML = `
+    ${badge}
+    <img src="${f.image}" alt="${f.name}"
+      onerror="this.outerHTML='<span style=\\'font-size:6rem\\'>${f.emoji}</span>'"
+    >
+  `;
+  document.getElementById('modalSeries').textContent = f.series;
+  document.getElementById('modalName').textContent = f.name;
+  document.getElementById('modalNum').textContent = `Figura ${f.number}`;
+  document.getElementById('modalDesc').textContent = f.desc;
+  document.getElementById('modalPrice').textContent = f.price;
+  document.getElementById('modalMeta').innerHTML = `
+    <div class="modal-meta-item"><div class="modal-meta-label">Altura</div><div class="modal-meta-value">${f.height}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Material</div><div class="modal-meta-value">${f.material}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Categoría</div><div class="modal-meta-value">${f.category.replace(/-/g,' ')}</div></div>
+    <div class="modal-meta-item"><div class="modal-meta-label">Serie</div><div class="modal-meta-value">${f.series}</div></div>
+  `;
+  const msg = encodeURIComponent(`Hola! Me interesa el Funko Pop de *${f.name}* (${f.number}) de la serie *${f.series}*. ¿Está disponible? El precio es ${f.price}.`);
+  document.getElementById('modalWA').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalBtn(); }
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+ 
+// ─── SECTION NAVIGATION ───
+const sections = ['hero','colecciones','fandoms','nosotros','contacto'];
+function showSection(name) {
+  sections.forEach(s => {
+    const el = document.getElementById('sec-' + s);
+    if (el) el.classList.toggle('hidden', s !== name);
+  });
+  // newsletter + footer always visible
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('mobileNav').classList.remove('open');
+}
+ 
+function setActive(id) {
+  document.querySelectorAll('.nav-links > li > a').forEach(a => a.classList.remove('active'));
+  const el = document.getElementById('nav-' + id);
+  if (el) el.classList.add('active');
+}
+ 
+// ─── MOBILE NAV ───
+function toggleMobileNav() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+}
+ 
+// ─── SCROLL TOP ───
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
+});
+ 
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+ 
+// ─── KEYBOARD ESC ───
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalBtn(); });
+ 
+// ─── INIT ───
+function init() {
+  buildDots();
+  //buildHeroFunkos();
+  resetTimer();
+  renderCarousel();
+  renderSeriesTabs();
+  renderSeriesGrid();
+  renderBrandGrid();
+    renderFandomsFull();
+    renderCollTabs();
+    filterCollection('todos');
+   // Arrancamos el temporizador automático del carrusel
+    startAutoPlay();
+}
+
+// ─── CONFIGURACIÓN DEL AUTOMÁTICO (AUTOPLAY) ───
+const autoPlayTime = 10000; // Tiempo en milisegundos (7 segundos)
+let slideInterval;
+
+function startAutoPlay() {
+    slideInterval = setInterval(nextSlide, autoPlayTime);
+}
+
+function nextSlide() {
+    // Usamos la función nativa que ya maneja tu código para cambiar slides
+    if (typeof showSlide === "function") {
+        // Suponiendo que tu plantilla calcula el siguiente así:
+        const slides = document.querySelectorAll('.hero-slide');
+        if (slides.length === 0) return;
+        
+        // Si tu código usa la variable global que ya existe, solo la aumentamos:
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide); 
+    } else {
+        // Plan B: Si no existe 'showSlide', ejecutamos el cambio manual directo:
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.dot');
+        if (slides.length === 0) return;
+
+        slides[currentSlide].classList.remove('active');
+        if (dots.length > 0) dots[currentSlide].classList.remove('active');
+        
+        currentSlide = (currentSlide + 1) % slides.length;
+        
+        slides[currentSlide].classList.add('active');
+        if (dots.length > 0) dots[currentSlide].classList.add('active');
+    }
+}
+
+// Vinculamos tu función resetTimer original para que reinicie el reloj al interactuar
+function resetTimer() {
+    clearInterval(slideInterval);
+    startAutoPlay();
+}
+
+// Inicializamos todo el sitio
+init();
+</script>
+
+</body>
+</html>
